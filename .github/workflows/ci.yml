@@ -1,27 +1,29 @@
-name: CI Pipeline
+
+name: Preprocessing CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  preprocessing:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.11"
 
       - name: Install dependencies
-        run: python -m pip install scikit-learn numpy pandas seaborn scipy
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas seaborn scikit-learn scipy
 
-      - name: Check Python syntax
-        run: python -m compileall -q preprocessing.py
-
-      - name: Run preprocessing script
+      - name: Run preprocessing code
         run: python preprocessing.py
