@@ -3,9 +3,13 @@ name: Preprocessing CI
 
 on:
   push:
-    branches: [main]
+    branches: 
+      - main
+      - firstbranch
   pull_request:
-    branches: [main]
+    branches: 
+      - main
+      - firstbranch
 
 jobs:
   preprocessing:
